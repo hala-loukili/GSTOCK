@@ -179,21 +179,29 @@ nav .profile-details i {
 .home-content .overview-boxes {
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
-  flex-wrap: nowrap;
+  justify-content: flex-start; /* use flex-start so gap works naturally */
+  flex-wrap: wrap;             /* ✅ allow boxes to wrap instead of overflow */
+  gap: 15px;                   /* ✅ clean spacing */
   padding: 0 20px;
   margin-bottom: 26px;
 }
+
 .overview-boxes .box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: calc(100% / 4 - 15px);
+  flex: 1 1 250px;             /* ✅ flexible: min 250px, can grow */
+  min-width: 0;                /* ✅ prevent content from forcing overflow */
   background: #fff;
   padding: 15px 14px;
   border-radius: 12px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+.home-content .overview-boxes .box:first-child {
+  flex: 0 0 25%; /* form box */
+}
+
 .overview-boxes .box-topic {
   font-size: 20px;
   font-weight: 500;
@@ -500,11 +508,14 @@ form{
 }
 
 /* table */
+/* table */
 table.mtable {
   width: 100%;
+  max-width: 100%;
   border-collapse: collapse;
-  width: 100%;
   border: 1px solid #ddd;
+  table-layout: fixed;   /* ✅ prevent table from expanding beyond parent */
+  word-wrap: break-word; /* ✅ allow breaking long text */
 }
 
 th,

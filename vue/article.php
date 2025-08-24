@@ -60,7 +60,7 @@
            <th>Prix unitaire</th>
            <th>Date fabrication</th>
            <th>Date expiration</th>
-           <th>Action</th>
+           <th style="text-align: center;">Action</th>
          </tr>
          <?php
           $articles = getArticle();
@@ -75,7 +75,7 @@
                <td><?= $value['prix_unitaire'] ?></td>
                <td><?= date('d/m/Y H:i:s', strtotime($value['date_fabrication'])) ?></td>
                <td><?= date('d/m/Y H:i:s', strtotime($value['date_expiration'])) ?></td>
-               <td><a href="?id=<?= $value['id'] ?>"><i class='bx bx-edit-alt'></i></a></td>
+               <td style="text-align: center;"><a href="?id=<?= $value['id'] ?>"><i class='bx bx-edit-alt' style="justify-content:center"></i></a></td>
              </tr>
          <?php
             }
