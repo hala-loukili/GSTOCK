@@ -60,4 +60,4 @@ if (
    
 }
 
-header('Location:../vue/vente.php');
+header(header: 'Location:../vue/vente.php');
