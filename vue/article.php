@@ -9,17 +9,29 @@
  <div class="home-content">
    <div class="overview-boxes">
      <div class="box">
-       <form action= <?= !empty($_GET['id']) ? "../model/modifArticle.php" : "../model/ajoutArticle.php" ?> method="post">
+       <form action=<?= !empty($_GET['id']) ? "../model/modifArticle.php" : "../model/ajoutArticle.php" ?> method="post">
          <label for="nom_article">nom de l'article</label>
          <input value="<?= !empty($_GET['id']) ? $article['nom_article'] : "" ?>" type="text" name="nom_article" id="nom_article" placeholder="Veuillez saisir le nom">
          <input value="<?= !empty($_GET['id']) ? $article['id'] : "" ?>" type="hidden" name="id" id="id">
 
 
-         <label for="categorie">Catégorie</label>
-         <select name="categorie" id="categorie">
-           <option <?= !empty($_GET['id']) && $article['categorie'] == "Ordinateur" ? "selected" : "" ?> value="Ordinateur">Ordinateur</option>
-           <option <?= !empty($_GET['id']) && $article['categorie'] == "imprimante" ? "selected" : "" ?> value="imprimante">imprimante</option>
-           <option <?= !empty($_GET['id']) && $article['categorie'] == "accessoire" ? "selected" : "" ?> value="accessoire">accessoire</option>
+         <label for="id_categorie">Catégorie</label>
+         <select name="id_categorie" id="id_categorie">
+           <?php
+            $categories = getCategorie();
+            if (!empty($categories) && is_array($categories)) {
+              foreach ($categories as $key => $value) {
+               
+             
+
+            ?>
+           <option <?= !empty($_GET['id']) && $article['id_categorie'] == $value['id'] ? "selected" : "" ?> value="<?= $value['id'] ?>"> <?= $value['libelle_categorie'] ?></option>
+          
+           <?php
+            }
+            } 
+
+            ?>
          </select>
 
          <label for="quantite">Quantité</label>
@@ -70,12 +82,12 @@
           ?>
              <tr>
                <td><?= $value['nom_article'] ?></td>
-               <td><?= $value['categorie'] ?></td>
+               <td><?= $value['libelle_categorie'] ?></td>
                <td><?= $value['quantite'] ?></td>
                <td><?= $value['prix_unitaire'] ?></td>
                <td><?= date('d/m/Y H:i:s', strtotime($value['date_fabrication'])) ?></td>
                <td><?= date('d/m/Y H:i:s', strtotime($value['date_expiration'])) ?></td>
-               <td style="text-align: center;"><a href="?id=<?= $value['id'] ?>"><i class='bx bx-edit-alt' style="justify-content:center"></i></a></td>
+               <td style="text-align: center;"><a href="?id=<?= $value['id_categorie'] ?>"><i class='bx bx-edit-alt'></i></a></td>
              </tr>
          <?php
             }

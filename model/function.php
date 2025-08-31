@@ -4,7 +4,8 @@ include 'connexion.php';
 function getArticle($id=null)
 {
     if (!empty($id)) {
-    $sql = "SELECT * FROM article where id=?";
+    $sql = "SELECT  nom_article, libelle_categorie, quantite, prix_unitaire, date_fabrication,
+     date_expiration, id_categorie, a.id FROM article AS a, categorie_article  AS c where a.id_categorie=c.id  AND a.id=?";
 
     $req = $GLOBALS['connexion']->prepare(query: $sql);
 
@@ -12,7 +13,9 @@ function getArticle($id=null)
 
     return $req->fetch();
     } else {
-    $sql = "SELECT * FROM article";
+    $sql = "SELECT  nom_article, libelle_categorie, quantite, prix_unitaire, date_fabrication,
+     date_expiration, id_categorie, a.id  FROM article AS a, categorie_article  AS c
+      where a.id_categorie=c.id";
 
     $req = $GLOBALS['connexion']->prepare(query: $sql);
 
@@ -21,8 +24,6 @@ function getArticle($id=null)
     return $req->fetchAll();
         
     }
-    
-   
 }
 
 function getClient($id=null)
@@ -187,4 +188,26 @@ function getMostVente()
     $req->execute(array(1));
 
     return $req->fetchAll(); 
+}
+
+function getCategorie($id=null)
+{
+    if (!empty($id)) {
+    $sql = "SELECT * FROM categorie_article where id=?";
+
+    $req = $GLOBALS['connexion']->prepare(query: $sql);
+
+    $req->execute(params: array($id));
+
+    return $req->fetch();
+    } else {
+    $sql = "SELECT * FROM categorie_article";
+
+    $req = $GLOBALS['connexion']->prepare(query: $sql);
+
+    $req->execute();
+
+    return $req->fetchAll();
+        
+    }
 }
